@@ -1,15 +1,11 @@
 package com.example.project_group_3
 
-enum class ProduceType{
-    VEGETABLE,FRUIT
-}
-
-data class Produce (
-    val id:Int,
-    val name:String,
-    val type:ProduceType,
-    val pricePerPound:Float,
-    val description:String,
-    val quantityPerPound:Float,
-    val image:String,
-    )
+data class Produce(
+    val id: Int = 0,
+    val name: String = "",
+    val type: String = "",
+    val pricePerPound: Double = 0.0,
+    val description: String = "",
+    val quantityPerPound: Double = 0.0,
+    val image: String = ""
+)
