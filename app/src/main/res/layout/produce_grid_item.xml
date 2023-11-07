@@ -7,15 +7,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="20dp"
-        android:background="@drawable/rounded_corners"
-        android:layout_height="match_parent">
+        android:background="@drawable/rounded_corners">
 
         <ImageView
             android:id="@+id/itemImage"
-            android:layout_margin="12dp"
             android:layout_width="140dp"
             android:layout_height="140dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_foreground" />
 
@@ -27,6 +28,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="TextView 1"
+            android:textStyle="bold"
             android:textSize="16sp" />
 
         <TextView
@@ -37,6 +39,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:text="TextView 2"
+            android:textStyle="italic"
             android:textSize="14sp" />
 
         <TextView
@@ -46,6 +49,7 @@
             android:layout_below="@id/itemType"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:text="TextView 3"
             android:textSize="14sp" />
     </RelativeLayout>

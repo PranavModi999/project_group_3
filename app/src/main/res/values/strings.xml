@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">project_group_3</string>
+
+    <string name="email_hint">Enter Email</string>
+    <string name="password_hint">Enter Password</string>
+    <string name="repeat_password_hint">Enter Password again</string>
+    <string name="login_title">Login/Signup</string>
+
+    <string name="book_title"><u>Book Title</u></string>
+    <string name="book_author">Book Author</string>
+    <string name="product_description"><u>- Description -</u></string>
+    <string name="about_author">- <u>About Author</u> -</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_input">Enter book name to search</string>
+
+    <string name="checkout_button">CHECKOUT</string>
+    <string name="cart_details_title"><u>Purchase Summary:</u></string>
+    <string name="enter_card_number">Enter Card Number</string>
+    <string name="payment_information">Payment Information</string>
+    <string name="card_number">Card Number</string>
+    <string name="enter_name_on_card">Enter Name on Card</string>
+    <string name="expiry_date_mm_yy">Expiry MM/YY</string>
+    <string name="enter_cvv">Enter CVV</string>
+    <string name="next">NEXT</string>
+    <string name="contact_information">Contact Information</string>
+    <string name="enter_full_name">Enter Full name</string>
+    <string name="enter_phone_number">Enter Phone number</string>
+    <string name="shipping_information">Shipping Information</string>
+    <string name="enter_full_address">Enter Full Address</string>
+    <string name="enter_postal_code">Postal code</string>
+    <string name="enter_city">Enter City</string>
+    <string name="enter_state_or_province_name">State/Province</string>
+    <string name="enter_country">Enter Country</string>
+    <string name="book_name">Book name</string>
+    <string name="book_author_detail">Book Author</string>
+    <string-array name="user_types">
+        <item>Admin</item>
+        <item>Customer</item>
+    </string-array>
 </resources>
