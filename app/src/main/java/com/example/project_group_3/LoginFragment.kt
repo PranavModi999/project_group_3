@@ -1,5 +1,6 @@
 package com.example.booksmart
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.project_group_3.ProductActivity
 import com.example.project_group_3.R
 
 class LoginFragment : Fragment() {
@@ -21,6 +23,10 @@ class LoginFragment : Fragment() {
         loginBtn = view.findViewById<Button>(R.id.loginBtn)
         loginEmail = view.findViewById<TextView>(R.id.loginEmail)
         loginPassword = view.findViewById<TextView>(R.id.loginPassword)
+
+        loginBtn?.setOnClickListener {
+            startActivity(Intent(context, ProductActivity::class.java))
+        }
         return view
     }
 }
