@@ -1,5 +1,6 @@
 package com.example.project_group_3
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -92,6 +93,7 @@ class CheckoutActivity : AppCompatActivity() {
 
         cardNumber.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 val input = charSequence.toString()
                 if (!input.isEmpty()) {
@@ -108,11 +110,18 @@ class CheckoutActivity : AppCompatActivity() {
                 }
             }
 
-            override fun afterTextChanged(editable: Editable) {}
+            override fun afterTextChanged(editable: Editable) {
+                // Reset the flag to true when the input is corrected
+                if (isValidCard) {
+                    isValidCard = true
+                }
+            }
         })
+
 
         cardExpiry.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 val input = charSequence.toString()
                 if (!input.isEmpty()) {
@@ -129,11 +138,18 @@ class CheckoutActivity : AppCompatActivity() {
                 }
             }
 
-            override fun afterTextChanged(editable: Editable) {}
+            override fun afterTextChanged(editable: Editable) {
+                // Reset the flag to true when the input is corrected
+                if (isValidExpiryDate) {
+                    isValidExpiryDate = true
+                }
+            }
         })
+
 
         cardCVV.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 val input = charSequence.toString()
                 if (!input.isEmpty()) {
@@ -150,8 +166,14 @@ class CheckoutActivity : AppCompatActivity() {
                 }
             }
 
-            override fun afterTextChanged(editable: Editable) {}
+            override fun afterTextChanged(editable: Editable) {
+                // Reset the flag to true when the input is corrected
+                if (isValidCVVValue) {
+                    isValidCVVValue = true
+                }
+            }
         })
+
 
         orderPlaceBtn.setOnClickListener {
             val name: String = customerName.text.toString()
@@ -189,7 +211,10 @@ class CheckoutActivity : AppCompatActivity() {
             } else if (TextUtils.isEmpty(address)) {
                 Toast.makeText(this@CheckoutActivity, "Please enter an Address", Toast.LENGTH_SHORT)
                     .show()
-            } else if (paymentOption == "Card") {
+            } else if (paymentOption == null) {
+                Toast.makeText(this@CheckoutActivity, "Please select a payment option", Toast.LENGTH_SHORT).show()
+            }
+            else if (paymentOption == "Card") {
                 if (TextUtils.isEmpty(inputCardNumber)) {
                     Toast.makeText(
                         this@CheckoutActivity,
@@ -227,15 +252,28 @@ class CheckoutActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            } else {
-
-                Toast.makeText(this@CheckoutActivity, "Succeesfully Ordered", Toast.LENGTH_SHORT)
-                    .show()
+                else {
+                    // Successfully Ordered
+                    Toast.makeText(
+                        this@CheckoutActivity,
+                        "Successfully Ordered",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    startActivity(Intent(this, AfterCheckoutActivity::class.java))
+                }
+            }
+            else {
+                // Successfully Ordered
+                Toast.makeText(
+                    this@CheckoutActivity,
+                    "Successfully Ordered",
+                    Toast.LENGTH_SHORT
+                ).show()
+                startActivity(Intent(this, AfterCheckoutActivity::class.java))
             }
         }
     }
-
-    // Phone Validations
+        // Phone Validations
     fun isValidPhoneNumber(number: String): Boolean {
         val regex = "\\d{10}|\\d{3}-\\d{3}-\\d{4}";
         return number.matches(Regex(regex)) && number.length <= 12
