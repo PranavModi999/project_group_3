@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/products"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ProductActivity">
 
     <RelativeLayout
+        android:id="@+id/top_menu"
         android:layout_width="match_parent"
-        android:layout_margin="12dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
 
         <ImageView
             android:id="@+id/back_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:src="@drawable/arrow_back" />
 
 
         <TextView
             android:id="@+id/morning_text"
             android:layout_width="wrap_content"
-            android:paddingLeft="12dp"
-            android:paddingTop="4dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/back_arrow"
+            android:paddingLeft="12dp"
+            android:paddingTop="4dp"
             android:text="Good Morning!" />
 
         <TextView
@@ -36,19 +39,35 @@
             android:layout_marginLeft="32dp"
             android:text="Zaid Alam"
             android:textSize="20dp" />
+
         <ImageView
             android:id="@+id/cart_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="32dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="12dp"
-            android:src="@drawable/cart" />
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/logout" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_menu" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/produceRecycler"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:backgroundTint="@color/main_green"
+        android:paddingTop="6dp"
+        app:itemIconTint="@drawable/menu_selector_color"
+        app:itemTextColor="@color/black"
+        app:menu="@menu/product_bottom_bar" />
+</RelativeLayout>
