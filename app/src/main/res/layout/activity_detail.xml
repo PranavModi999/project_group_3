@@ -117,6 +117,14 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/main_green"
                 android:text="Add To Cart" />
+
+            <Button
+                android:id="@+id/checkoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/main_green"
+                android:background="@drawable/rounded_corners"
+                android:text="Checkout" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

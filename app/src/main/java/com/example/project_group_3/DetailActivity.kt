@@ -1,5 +1,6 @@
 package com.example.project_group_3
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -75,8 +76,13 @@ class DetailActivity : AppCompatActivity() {
         val addCartBtn: Button = findViewById(R.id.addToCart)
 
         addCartBtn.setOnClickListener {
+            Toast.makeText(this@DetailActivity, "Product added to cart", Toast.LENGTH_SHORT)
             val cart: Cart = Cart.instance!!
             cart.cartList.add(currentItem)
+        }
+        val checkoutBtn: Button = findViewById(R.id.checkoutBtn)
+        checkoutBtn.setOnClickListener {
+            startActivity(Intent(this@DetailActivity, CheckoutActivity::class.java))
         }
     }
 }
