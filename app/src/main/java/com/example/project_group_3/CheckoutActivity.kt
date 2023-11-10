@@ -228,8 +228,8 @@ class CheckoutActivity : AppCompatActivity() {
                     ).show()
                 }
             } else {
-
-                Toast.makeText(this@CheckoutActivity, "Succeesfully Ordered", Toast.LENGTH_SHORT)
+                Cart.instance!!.cartList.clear()
+                Toast.makeText(this@CheckoutActivity, "Successfully Ordered", Toast.LENGTH_SHORT)
                     .show()
             }
         }

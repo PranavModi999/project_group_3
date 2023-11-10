@@ -1,10 +1,12 @@
 package com.example.project_group_3
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +27,12 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_cart, container, false)
+
+        val checkoutBtn: Button = view.findViewById(R.id.checkoutBtn)
+        checkoutBtn.setOnClickListener {
+            startActivity(Intent(context, CheckoutActivity::class.java))
+        }
+
         cartList = ArrayList<Produce>()
 
         cartSubTotal = view.findViewById(R.id.cartSubTotalPrice)
@@ -32,7 +40,7 @@ class CartFragment : Fragment() {
         cartTotal = view.findViewById(R.id.cartTotalPrice)
         cartList = Cart.instance?.cartList
         updatePurchaseSummary()
-        cartListView = view.findViewById(R.id.cartBooksListView)
+        cartListView = view.findViewById(R.id.cartListView)
         layoutManager = LinearLayoutManager(context)
         cartListView?.layoutManager = layoutManager
         val cartBookAdapter = CartBookAdapter(cartList as ArrayList<Produce>)

@@ -12,6 +12,10 @@ class Cart private constructor() {
         cartSingleton!!.cartBookList.remove(produce)
     }
 
+    fun findItemById(idToCheck: Int): Produce? {
+        return cartBookList.find { it.id == idToCheck }
+    }
+
     val cartList: ArrayList<Produce>
         get() = cartBookList
 

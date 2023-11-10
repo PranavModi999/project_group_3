@@ -50,6 +50,8 @@ class DetailActivity : AppCompatActivity() {
 
             if (currentQuantity > 1) {
                 quantityTextView.text = (currentQuantity - 1).toString() + " lb"
+                currentItem.quantityPerPound = currentQuantity.toDouble() - 1
+
             } else {
                 Toast.makeText(
                     this@DetailActivity,
@@ -58,12 +60,13 @@ class DetailActivity : AppCompatActivity() {
                 ).show()
             }
         })
+
         incrementButton.setOnClickListener(View.OnClickListener {
             val currentQuantity: Int = quantityTextView.text.toString().split(" ")[0].toInt()
-            currentItem.quantityPerPound = currentQuantity.toDouble()
 
             if (currentQuantity < 50) {
                 quantityTextView.text = (currentQuantity + 1).toString() + " lb"
+                currentItem.quantityPerPound = currentQuantity.toDouble() + 1
             } else {
                 Toast.makeText(
                     this@DetailActivity,
@@ -76,9 +79,19 @@ class DetailActivity : AppCompatActivity() {
         val addCartBtn: Button = findViewById(R.id.addToCart)
 
         addCartBtn.setOnClickListener {
-            Toast.makeText(this@DetailActivity, "Product added to cart", Toast.LENGTH_SHORT)
+            Toast.makeText(this@DetailActivity, "Product added to cart", Toast.LENGTH_SHORT).show()
             val cart: Cart = Cart.instance!!
-            cart.cartList.add(currentItem)
+            val matchingItem = cart.findItemById(currentItem.id)
+
+            if (matchingItem != null) {
+                Log.i("test2", "item already exsist")
+                currentItem.quantityPerPound += matchingItem.quantityPerPound
+                cart.cartList.remove(matchingItem)
+                cart.cartList.add(currentItem)
+            } else {
+                Log.i("test2", "adding item to cart")
+                cart.cartList.add(currentItem)
+            }
         }
         val checkoutBtn: Button = findViewById(R.id.checkoutBtn)
         checkoutBtn.setOnClickListener {

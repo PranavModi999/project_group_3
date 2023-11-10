@@ -27,9 +27,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="350dp"
-        android:layout_height="500dp"
+        android:layout_below="@+id/top_menu"
+        android:layout_height="620dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="85dp"
         app:cardCornerRadius="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -123,7 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/main_green"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/round_corners_green"
                 android:text="Checkout" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

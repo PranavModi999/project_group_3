@@ -22,10 +22,21 @@
             android:layout_marginRight="12dp"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/checkoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_margin="12dp"
+                android:background="@drawable/round_corners_green"
+                android:backgroundTint="@color/main_green"
+                android:text="CHECKOUT" />
+
             <TextView
                 android:id="@+id/cartPurchaseTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/checkoutBtn"
                 android:layout_margin="6dp"
                 android:text="@string/cart_details_title"
                 android:textSize="18sp" />
@@ -117,9 +128,10 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cartBooksListView"
+        android:id="@+id/cartListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/cartDetails" />
+
 
 </RelativeLayout>
