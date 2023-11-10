@@ -91,76 +91,12 @@
         android:paddingEnd="10dp"
         android:paddingBottom="4dp" />
 
-    <EditText
-        android:id="@+id/signupAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/signupRepeatPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginRight="32dp"
-        android:background="@drawable/custom_edit_text"
-        android:ems="10"
-        android:hint="Enter full address"
-        android:inputType="textPostalAddress"
-        android:minHeight="48dp"
-        android:paddingStart="18dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="10dp"
-        android:paddingBottom="4dp" />
-
-    <EditText
-        android:id="@+id/signupPostal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/signupAddress"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginRight="32dp"
-        android:background="@drawable/custom_edit_text"
-        android:ems="10"
-        android:hint="Enter Postal code"
-        android:inputType="textPostalAddress"
-        android:minHeight="48dp"
-        android:paddingStart="18dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="10dp"
-        android:paddingBottom="4dp" />
-
-    <LinearLayout
-        android:id="@+id/spinnerContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/signupPostal"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="4dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="User Type: "
-            android:textSize="16sp" />
-
-        <Spinner
-            android:id="@+id/userTypeSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:contentDescription="@string/next"
-            android:minHeight="48dp"
-            android:spinnerMode="dropdown" />
-    </LinearLayout>
 
     <Button
         android:id="@+id/signupBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerContainer"
+        android:layout_below="@+id/signupRepeatPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"

@@ -1,96 +1,144 @@
 package com.example.booksmart
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.project_group_3.ProductActivity
 import com.example.project_group_3.R
+import com.example.project_group_3.User
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class SignUpFragment : Fragment() {
-    var signupBtn: Button? = null
-    var signupEmail: TextView? = null
+
+    var mAuth: FirebaseAuth? = null
+
+    private var mDatabase: DatabaseReference? = null
+
+    var signupEmail: TextView? =
+        null
     var signupPassword: TextView? = null
     var signupName: TextView? = null
     var signupRepeatPassword: TextView? = null
-    var signupAddress: TextView? = null
-    var signupPostal: TextView? = null
-    var userTypeSpinner: Spinner? = null
-    private var mDatabase: DatabaseReference? = null
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_sign_up, container, false)
+
+        mAuth = FirebaseAuth.getInstance()
         mDatabase = FirebaseDatabase.getInstance().reference
-        signupBtn = view.findViewById<Button>(R.id.signupBtn)
-        signupName = view.findViewById<TextView>(R.id.signupName)
-        signupEmail = view.findViewById<TextView>(R.id.signupEmail)
-        signupPassword = view.findViewById<TextView>(R.id.signupPassword)
-        signupRepeatPassword = view.findViewById<TextView>(R.id.signupRepeatPassword)
-        signupAddress = view.findViewById<TextView>(R.id.signupAddress)
-        signupPostal = view.findViewById<TextView>(R.id.signupPostal)
-        userTypeSpinner = view.findViewById<Spinner>(R.id.userTypeSpinner)
-//        val adapter = ArrayAdapter.createFromResource(
-//            requireContext(),
-//            R.array.user_types, R.layout.simple_spinner_item
-//        )
-//        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-//        userTypeSpinner.setAdapter(adapter)
+
+        val signupBtn: Button = view.findViewById<Button>(R.id.signupBtn)
+        signupName = view.findViewById(R.id.signupName)
+        signupEmail = view.findViewById(R.id.signupEmail)
+        signupPassword = view.findViewById(R.id.signupPassword)
+        signupRepeatPassword = view.findViewById(R.id.signupRepeatPassword)
+
+        signupBtn.setOnClickListener(View.OnClickListener { view ->
+            if (isInputValid()) {
+                mAuth!!.createUserWithEmailAndPassword(
+                    signupEmail?.getText().toString(),
+                    signupPassword?.getText().toString()
+                )
+                    .addOnCompleteListener(
+                        (context as Activity?)!!
+                    ) { task ->
+                        if (task.isSuccessful) {
+                            val currentUser = mAuth!!.currentUser
+                            Log.i("test2", "signup success User id:" + currentUser!!.uid)
+
+                            val newUser = User(
+                                currentUser!!.uid,
+                                signupName?.getText().toString().trim { it <= ' ' },
+                                signupEmail?.getText().toString().trim { it <= ' ' },
+                                "test address",
+                                "test postal",
+                                "test type"
+                            )
+                            mDatabase!!.child("users").child(currentUser!!.uid).setValue(newUser)
+                            val snackbar =
+                                Snackbar.make(
+                                    view,
+                                    "User created Successfully",
+                                    Snackbar.LENGTH_SHORT
+                                )
+                            snackbar.addCallback(object : Snackbar.Callback() {
+                                override fun onDismissed(transientBottomBar: Snackbar, event: Int) {
+                                    super.onDismissed(transientBottomBar, event)
+                                    startActivity(Intent(context, ProductActivity::class.java))
+                                }
+                            })
+                            snackbar.show()
+                        } else {
+                            val e = task.exception as FirebaseAuthException?
+                            Log.i("test2", "onComplete: " + e!!.errorCode)
+                            if (e!!.errorCode === "ERROR_EMAIL_ALREADY_IN_USE") {
+                                signupEmail?.requestFocus()
+                                signupEmail?.error = "Email address already in use"
+                            } else if (e!!.errorCode === "ERROR_INVALID_EMAIL") {
+                                signupEmail?.requestFocus()
+                                signupEmail?.error = "Invalid Email address"
+                            } else if (e!!.errorCode === "ERROR_WEAK_PASSWORD") {
+                                signupPassword?.requestFocus()
+                                signupPassword?.setError("Please enter a stronger password")
+                            } else {
+                                Snackbar.make(view, "Something went wrong", Snackbar.LENGTH_SHORT)
+                                    .setAction("Action", null).show()
+                            }
+                        }
+                    }
+            }
+        })
         return view
     }
 
-    private val isInputValid: Boolean
-        private get() {
-            if (signupName!!.text.toString().trim { it <= ' ' }.isEmpty()) {
-                signupName!!.requestFocus()
-                signupName!!.error = "Name is required"
-                return false
-            }
-            if (signupEmail!!.text.toString().trim { it <= ' ' }.isEmpty()) {
-                signupEmail!!.requestFocus()
-                signupEmail!!.error = "Email is required"
-                return false
-            } else if (!Patterns.EMAIL_ADDRESS.matcher(
-                    signupEmail!!.text.toString().trim { it <= ' ' }).matches()
-            ) {
-                signupEmail!!.requestFocus()
-                signupEmail!!.error = "Invalid email address"
-                return false
-            }
-            if (signupPassword!!.text.toString().trim { it <= ' ' }.isEmpty()) {
-                signupPassword!!.requestFocus()
-                signupPassword!!.error = "Password is required"
-                return false
-            }
-            if (signupPassword!!.text.toString()
-                    .trim { it <= ' ' } != signupRepeatPassword!!.text.toString().trim { it <= ' ' }
-            ) {
-                signupRepeatPassword!!.requestFocus()
-                signupRepeatPassword!!.error = "Passwords do not match"
-                return false
-            }
-            if (signupAddress!!.text.toString().trim { it <= ' ' }.isEmpty()) {
-                signupAddress!!.requestFocus()
-                signupAddress!!.error = "Address is required"
-                return false
-            }
-            if (signupPostal!!.text.toString().trim { it <= ' ' }.isEmpty()) {
-                signupPostal!!.requestFocus()
-                signupPostal!!.error = "Postal code is required"
-                return false
-            } else if (signupPostal!!.text.toString().trim { it <= ' ' }.length != 6) {
-                signupPostal!!.requestFocus()
-                signupPostal!!.error = "Postal code must be 6 Character long"
-                return false
-            }
-            return true
+    fun isInputValid(): Boolean {
+        if (signupName?.getText().toString().trim { it <= ' ' }.isEmpty()) {
+            signupName?.requestFocus()
+            signupName?.setError("Name is required")
+            return false
         }
+
+        if (signupEmail?.getText().toString().trim { it <= ' ' }.isEmpty()) {
+            signupEmail?.requestFocus()
+            signupEmail?.setError("Email is required")
+            return false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(
+                signupEmail?.getText().toString().trim { it <= ' ' }).matches()
+        ) {
+            signupEmail?.requestFocus()
+            signupEmail?.setError("Invalid email address")
+            return false
+        }
+
+        if (signupPassword?.getText().toString().trim { it <= ' ' }.isEmpty()) {
+            signupPassword?.requestFocus()
+            signupPassword?.setError("Password is required")
+            return false
+        }
+
+        if (signupPassword?.getText().toString()
+                .trim { it <= ' ' } != signupRepeatPassword?.getText()
+                .toString().trim { it <= ' ' }
+        ) {
+            signupRepeatPassword?.requestFocus()
+            signupRepeatPassword?.setError("Passwords do not match")
+            return false
+        }
+        return true
+    }
 }

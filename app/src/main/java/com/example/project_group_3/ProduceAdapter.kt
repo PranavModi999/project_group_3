@@ -12,18 +12,26 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
-class ProduceAdapter(options: FirebaseRecyclerOptions<Produce>) :
-    FirebaseRecyclerAdapter<Produce, ProduceAdapter.ProduceViewHolder>(options) {
+class ProduceAdapter(
+    options: FirebaseRecyclerOptions<Produce>,
+    private val clickListener: (Produce) -> Unit
+) : FirebaseRecyclerAdapter<Produce, ProduceAdapter.ProduceViewHolder>(options) {
 
 
     override fun onBindViewHolder(holder: ProduceViewHolder, position: Int, model: Produce) {
         holder.txtName.text = model.name
         holder.txtType.text = model.type
         holder.txtPrice.text = "$ " + model.pricePerPound.toString()
+
         Log.i("test77", "onBindViewHolder: " + model.pricePerPound)
+
         val storageRef: StorageReference =
             FirebaseStorage.getInstance().getReferenceFromUrl(model.image)
         Glide.with(holder.imgCover.context).load(storageRef).into(holder.imgCover)
+
+        holder.itemView.setOnClickListener {
+            clickListener(model)
+        }
     }
 
     override fun onCreateViewHolder(
@@ -42,6 +50,5 @@ class ProduceAdapter(options: FirebaseRecyclerOptions<Produce>) :
         val txtType: TextView = itemView.findViewById(R.id.itemType)
         val txtPrice: TextView = itemView.findViewById(R.id.itemPrice)
         val imgCover: ImageView = itemView.findViewById(R.id.itemImage)
-
     }
 }

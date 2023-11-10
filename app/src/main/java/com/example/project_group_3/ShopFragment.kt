@@ -1,10 +1,12 @@
 package com.example.project_group_3
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +30,12 @@ class ShopFragment : Fragment() {
             .setQuery(query, Produce::class.java)
             .build()
 
-        adapter = ProduceAdapter(options)
+        adapter = ProduceAdapter(options) { item ->
+            Log.i("test2", "onCreateView:here " + item.name)
+            val i: Intent = Intent(activity, DetailActivity::class.java)
+            i.putExtra("SELECTED_ITEM", item)
+            startActivity(i)
+        }
 
         val rView: RecyclerView = view.findViewById(R.id.produceRecycler)
         rView.layoutManager = GridLayoutManager(context, 2)
@@ -36,6 +43,10 @@ class ShopFragment : Fragment() {
         Log.i("test77", "inside product " + query)
 
         return view
+    }
+
+    private fun clickListener(item: Produce) {
+        Toast.makeText(context, item.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStart() {

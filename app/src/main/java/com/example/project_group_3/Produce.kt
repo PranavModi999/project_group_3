@@ -6,6 +6,6 @@ data class Produce(
     val type: String = "",
     val pricePerPound: Double = 0.0,
     val description: String = "",
-    val quantityPerPound: Double = 0.0,
+    var quantityPerPound: Double = 0.0,
     val image: String = ""
-)
+):java.io.Serializable
