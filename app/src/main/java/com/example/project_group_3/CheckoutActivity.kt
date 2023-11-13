@@ -263,6 +263,7 @@ class CheckoutActivity : AppCompatActivity() {
                 }
             }
             else {
+                Cart.instance!!.cartList.clear();
                 // Successfully Ordered
                 Toast.makeText(
                     this@CheckoutActivity,

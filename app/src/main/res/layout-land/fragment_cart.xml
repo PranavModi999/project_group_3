@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CartFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CartFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cartDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/checkoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:background="@drawable/round_corners_green"
+                android:backgroundTint="@color/main_green"
+                android:text="CHECKOUT" />
+
+            <TextView
+                android:id="@+id/cartPurchaseTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/checkoutBtn"
+                android:layout_margin="6dp"
+                android:text="@string/cart_details_title"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/cartSubTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cartPurchaseTitle"
+                android:text="Subtotal"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/cartSubTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cartPurchaseTitle"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="12dp"
+                android:text="$43.76"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/cartTax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cartSubTotal"
+                android:text="Total tax"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/cartTaxPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cartSubTotal"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="12dp"
+                android:text="$13.76"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/cartDeliveryCharge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cartTax"
+                android:text="Delivery Charges"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cartTax"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="12dp"
+                android:text="Free"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/cartBreakLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/cartDeliveryCharge"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="4dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cartBreakLine"
+                android:layout_marginBottom="8dp"
+                android:text="Total"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cartTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cartBreakLine"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="12dp"
+                android:text="$56.76"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cartListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cartDetails" />
+
+</RelativeLayout>
+</ScrollView>
